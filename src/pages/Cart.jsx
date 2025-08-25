@@ -3,7 +3,7 @@ import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems } = useCart();
+  const { cartItems, removeFromCart } = useCart();
 
   if (cartItems.length === 0)
     return (
@@ -39,6 +39,12 @@ const Cart = () => {
               Rs.{item.price}{" "}
               {item.quantity > 1 && `(Rs.${item.price * item.quantity} total)`}
             </p>
+            <button
+              onClick={() => removeFromCart(item.id)}
+              className="border rounded cursor-pointer mt-3"
+            >
+              Remove Product
+            </button>
           </div>
           <img
             src={item.images?.[0]}

@@ -4,7 +4,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
-  const { cartItems } = useCart();
+  const { cartItems, removeFromCart } = useCart();
 
   // total
   const totalPrice = cartItems.reduce(
@@ -45,9 +45,19 @@ const Checkout = () => {
         {cartItems.map((item, index) => (
           <div key={index} className="flex justify-between mb-2">
             <span>{item.title}</span>
-            <span>
-              Rs.{item.price} x {item.quantity}
-            </span>
+            <div>
+              <span className="px-2">
+                Rs.{item.price} x {item.quantity}
+              </span>
+              <span className="px-2">
+                <button
+                  className="cursor-pointer"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  ␡
+                </button>
+              </span>
+            </div>
           </div>
         ))}
         <hr className="my-2" />
