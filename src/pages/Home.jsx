@@ -30,7 +30,6 @@ const Home = () => {
         !selectedCategory
       ) {
         return fetchProductsWithPagination(page * limit, limit);
-        applied;
       }
       if (selectedCategory) {
         return fetchProductsByCategory(selectedCategory);
