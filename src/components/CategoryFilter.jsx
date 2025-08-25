@@ -20,7 +20,7 @@ const CategoryFilter = ({
 
   const handlePriceChange = () => {
     const min = minPrice ? parseInt(minPrice) : 0;
-    const max = maxPrice ? parseInt(maxPrice) : Infinity;
+    const max = maxPrice ? parseInt(maxPrice) : 100000;
     onPriceChange({ min, max });
   };
 
