@@ -13,7 +13,7 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
   const [page, setPage] = useState(0); // page starts from 0
-  const limit = 10; // products per page
+  const limit = 9; // products per page
 
   const {
     data: products,
