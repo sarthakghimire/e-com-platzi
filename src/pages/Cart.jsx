@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
@@ -8,19 +8,27 @@ const Cart = () => {
   if (cartItems.length === 0)
     return <p className="p-4">🛒 Your cart is empty.</p>;
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
-      {cartItems.map((item, index) => (
+      {cartItems.map((item) => (
         <div
-          key={index}
+          key={item.id}
           className="border p-4 rounded mb-2 flex justify-between items-center"
         >
           <div>
-            <h3 className="text-lg font-semibold">{item.title}</h3>
-            <p className="text-gray-600">Rs.{item.price}</p>
+            <h3 className="text-lg font-semibold">
+              {item.title} x {item.quantity}
+            </h3>
+            <p className="text-gray-600">
+              Rs.{item.price}{" "}
+              {item.quantity > 1 && `(Rs.${item.price * item.quantity} total)`}
+            </p>
           </div>
           <img
             src={item.images?.[0]}
