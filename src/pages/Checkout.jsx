@@ -23,7 +23,7 @@ const Checkout = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded">
-      {/* Toast container */}
+      {/* For Toast */}
       <Toaster position="top-center" reverseOrder={false} />
 
       <h2 className="text-2xl font-bold mb-4">Checkout</h2>
