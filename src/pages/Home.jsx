@@ -58,20 +58,21 @@ const Home = () => {
 
   return (
     <div id="home" className="p-6 flex lg:flex-row md:flex-row flex-col gap-6">
+      {/* Filter box */}
       <CategoryFilter
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
         selectedPriceRange={priceRange}
         onPriceChange={handlePriceChange}
       />
-
+      {/* Product List */}
       <div className="flex-1">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products?.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
+        {/* Pagination */}
         {!selectedCategory &&
           priceRange.min === 0 &&
           priceRange.max === Infinity && (
