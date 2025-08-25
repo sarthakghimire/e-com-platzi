@@ -21,7 +21,9 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    const index = cartItems.findIndex((ci) => ci.id === id);
+    setCartItems((prev) => prev.splice(index, 1));
+    // setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const clearCart = () => {
@@ -29,20 +31,34 @@ export const CartProvider = ({ children }) => {
   };
 
   const increaseQuantity = (id) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+    const index = cartItems.findIndex((ci) => ci.id === id);
+
+    if (index !== -1) {
+      const ciCpy = [...cartItems];
+      ciCpy[index].quantity = ciCpy[index].quantity + 1;
+      setCartItems([...ciCpy]);
+    }
+
+    // setCartItems(
+    //   cartItems.map((item) =>
+    //     item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+    //   )
+    // );
   };
   const decreaseQuantity = (id) => {
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === id
-          ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
-          : item
-      )
-    );
+    const index = cartItems.findIndex((ci) => ci.id === id);
+    if (index !== -1) {
+      const ciCpy = [...cartItems];
+      ciCpy[index].quantity = Math.max(ciCpy[index].quantity - 1, 1);
+      setCartItems([...ciCpy]);
+    }
+    // setCartItems(
+    //   cartItems.map((item) =>
+    //     item.id === id
+    //       ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
+    //       : item
+    //   )
+    // );
   };
 
   return (
