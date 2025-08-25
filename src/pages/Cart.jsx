@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const {
+    cartItems,
+    removeFromCart,
+    clearCart,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useCart();
 
   if (cartItems.length === 0)
     return (
@@ -39,9 +45,25 @@ const Cart = () => {
               Rs.{item.price}{" "}
               {item.quantity > 1 && `(Rs.${item.price * item.quantity} total)`}
             </p>
+            {/* +- buttons */}
+            <div className="flex">
+              <button
+                onClick={() => decreaseQuantity(item.id)}
+                className="border px-3 mx-2 cursor-pointer"
+              >
+                -
+              </button>
+              <p>{item.quantity}</p>
+              <button
+                onClick={() => increaseQuantity(item.id)}
+                className="border px-3 mx-2 cursor-pointer"
+              >
+                +
+              </button>
+            </div>
             <button
               onClick={() => removeFromCart(item.id)}
-              className="border rounded cursor-pointer mt-3"
+              className="text-lime-300 border rounded cursor-pointer mt-3 bg-green-700 hover:bg-green-800 text-sm px-5 py-2"
             >
               Remove Product
             </button>
@@ -54,6 +76,12 @@ const Cart = () => {
         </div>
       ))}
       <h3 className="text-xl">Total price:Rs.{totalPrice}</h3>
+      <button
+        onClick={() => clearCart()}
+        className="mt-4 mx-3 inline-block text-center text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2 5"
+      >
+        Clear Cart
+      </button>
       <Link
         to="/checkout"
         className="mt-4 inline-block text-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 5"

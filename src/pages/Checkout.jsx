@@ -4,7 +4,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 const Checkout = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, clearCart } = useCart();
 
   // total
   const totalPrice = cartItems.reduce(
@@ -65,6 +65,12 @@ const Checkout = () => {
           <span>Total</span>
           <span>Rs.{totalPrice.toFixed(2)}</span>
         </div>
+        <button
+          onClick={() => clearCart()}
+          className="mt-4 mx-3 inline-block text-center text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2 5"
+        >
+          Clear Cart
+        </button>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
