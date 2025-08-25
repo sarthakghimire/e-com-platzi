@@ -63,9 +63,9 @@ const CategoryFilter = ({
           Apply
         </button>
       </div>
-      <p>
+      {/* <p>
         Current Range: {selectedPriceRange.min} - {selectedPriceRange.max}
-      </p>{" "}
+      </p>{" "} */}
     </div>
   );
 };
