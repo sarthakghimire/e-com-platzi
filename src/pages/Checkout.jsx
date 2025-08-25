@@ -6,7 +6,10 @@ const Checkout = () => {
   const { cartItems } = useCart();
 
   // total
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   if (cartItems.length === 0) {
     return (
@@ -33,7 +36,9 @@ const Checkout = () => {
         {cartItems.map((item, index) => (
           <div key={index} className="flex justify-between mb-2">
             <span>{item.title}</span>
-            <span>Rs.{item.price}</span>
+            <span>
+              Rs.{item.price} x {item.quantity}
+            </span>
           </div>
         ))}
         <hr className="my-2" />
