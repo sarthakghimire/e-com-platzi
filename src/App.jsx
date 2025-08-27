@@ -4,6 +4,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   );
