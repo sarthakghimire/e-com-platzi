@@ -24,6 +24,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
+            <Link to="/" className="hover:text-blue-600">
+              Log Out {user.name}
+            </Link>
+          </li>
+          <li>
             <img
               className="h-10 w-10 rounded-3xl"
               src={user ? user.avatar : "https://via.placeholder.com/40"}

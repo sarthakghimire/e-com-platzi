@@ -6,7 +6,7 @@ import Checkout from "./pages/Checkout";
 import ErrorPage from "./pages/ErrorPage";
 import LoginForm from "./pages/LoginForm";
 import AdminPanel from "./pages/AdminPanel";
-import ProtectedRoute from "./components/ProtectedRoutes";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
