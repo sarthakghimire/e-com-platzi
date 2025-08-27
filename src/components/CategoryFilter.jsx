@@ -43,34 +43,36 @@ const CategoryFilter = ({
         ))}
       </div>
       <div>
-        <h2 className="text-xl font-semibold mb-2">Filter by Price</h2>
-        <div className="flex flex-col w-50 gap-2 mb-2">
-          <input
-            type="number"
-            value={minPrice}
-            onChange={(e) => setMinPrice(e.target.value)}
-            placeholder="Min Price"
-            className="p-1 border rounded"
-          />
-          <input
-            type="number"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
-            placeholder="Max Price"
-            className="p-1 border rounded"
-          />
-          <button
-            onClick={handlePriceChange}
-            className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Apply
-          </button>
+        <div>
+          <h2 className="text-xl font-semibold mb-2">Filter by Price</h2>
+          <div className="flex flex-col w-50 gap-2 mb-2">
+            <input
+              type="number"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+              placeholder="Min Price"
+              className="p-1 border rounded"
+            />
+            <input
+              type="number"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              placeholder="Max Price"
+              className="p-1 border rounded"
+            />
+            <button
+              onClick={handlePriceChange}
+              className="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Apply
+            </button>
+          </div>
         </div>
-      </div>
-      <div>
-        <p>
-          Current Range: {selectedPriceRange.min} - {selectedPriceRange.max}
-        </p>{" "}
+        <div>
+          <p>
+            Current Range: {selectedPriceRange.min} - {selectedPriceRange.max}
+          </p>{" "}
+        </div>
       </div>
     </div>
   );
