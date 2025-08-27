@@ -85,6 +85,8 @@ const LoginForm = () => {
         <p>Use these to enter:</p>
         <p>username:john@mail.com, pwd:changeme (CUSTOMER)</p>
         <p>username:admin@mail.com, pwd:admin123 (ADMIN)</p>
+        <br />
+        <p>More usernames: https://api.escuelajs.co/api/v1/users</p>
       </div>
     </div>
   );
