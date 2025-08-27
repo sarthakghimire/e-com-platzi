@@ -97,3 +97,14 @@ export const updateProduct = async (id, updatedData) => {
     );
   }
 };
+// Delete logic
+export const deleteProduct = async (id) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/products/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to delete product"
+    );
+  }
+};
