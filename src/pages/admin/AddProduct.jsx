@@ -33,7 +33,7 @@ const AddProduct = () => {
     if (name === "images") {
       setFormData((prev) => ({
         ...prev,
-        images: [value], // Update images as an array
+        images: [value],
       }));
     } else {
       setFormData((prev) => ({
