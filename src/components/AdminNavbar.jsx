@@ -26,7 +26,11 @@ const Navbar = () => {
           <li>
             <img
               className="h-10 w-10 rounded-3xl"
-              src={user ? user.avatar : "https://via.placeholder.com/40"}
+              src={
+                user
+                  ? user.avatar
+                  : "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
+              }
               alt=""
             />
           </li>

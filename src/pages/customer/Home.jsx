@@ -5,10 +5,10 @@ import {
   fetchProductsByCategory,
   fetchProductsByPriceRange,
   fetchProductsWithPagination,
-} from "../api/products";
-import ProductCard from "../components/ProductCard";
-import CategoryFilter from "../components/CategoryFilter";
-import Navbar from "../components/Navbar";
+} from "../../api/products";
+import ProductCard from "../../components/ProductCard";
+import CategoryFilter from "../../components/CategoryFilter";
+import Navbar from "../../components/Navbar";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);

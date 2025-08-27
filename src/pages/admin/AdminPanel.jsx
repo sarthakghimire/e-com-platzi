@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../api/products";
-import AdminProduct from "../components/AdminProduct";
-import AdminNavbar from "./../components/AdminNavbar";
+import { fetchProducts } from "../../api/products";
+import AdminProduct from "../../components/AdminProduct";
+import AdminNavbar from "../../components/AdminNavbar";
 
 const AdminPanel = () => {
   const {

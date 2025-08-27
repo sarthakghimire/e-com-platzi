@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchProductById } from "../api/products";
+import { fetchProductById } from "../../api/products";
 import toast, { Toaster } from "react-hot-toast";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
