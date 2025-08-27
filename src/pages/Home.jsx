@@ -8,6 +8,7 @@ import {
 } from "../api/products";
 import ProductCard from "../components/ProductCard";
 import CategoryFilter from "../components/CategoryFilter";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -56,41 +57,47 @@ const Home = () => {
     return <p className="p-4 text-red-500">Error: {error.message}</p>;
 
   return (
-    <div id="home" className="p-6 flex lg:flex-row md:flex-row flex-col gap-6">
-      {/* Filter box */}
-      <CategoryFilter
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
-        selectedPriceRange={priceRange}
-        onPriceChange={handlePriceChange}
-      />
-      {/* Product List */}
-      <div className="flex-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products?.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+    <div>
+      <Navbar />
+      <div
+        id="home"
+        className="p-6 flex lg:flex-row md:flex-row flex-col gap-6"
+      >
+        {/* Filter box */}
+        <CategoryFilter
+          selectedCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
+          selectedPriceRange={priceRange}
+          onPriceChange={handlePriceChange}
+        />
+        {/* Product List */}
+        <div className="flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products?.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          {/* Pagination */}
+          {!selectedCategory &&
+            priceRange.min === 0 &&
+            priceRange.max === Infinity && (
+              <div className="flex justify-center gap-4 mt-6">
+                <button
+                  disabled={page === 0}
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setPage((prev) => prev + 1)}
+                  className="px-4 py-2 bg-gray-200 rounded"
+                >
+                  Next
+                </button>
+              </div>
+            )}
         </div>
-        {/* Pagination */}
-        {!selectedCategory &&
-          priceRange.min === 0 &&
-          priceRange.max === Infinity && (
-            <div className="flex justify-center gap-4 mt-6">
-              <button
-                disabled={page === 0}
-                onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-                className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-              >
-                Previous
-              </button>
-              <button
-                onClick={() => setPage((prev) => prev + 1)}
-                className="px-4 py-2 bg-gray-200 rounded"
-              >
-                Next
-              </button>
-            </div>
-          )}
       </div>
     </div>
   );
