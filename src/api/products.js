@@ -108,3 +108,14 @@ export const deleteProduct = async (id) => {
     );
   }
 };
+//Add a new product
+export const addProduct = async (productData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/products/`, productData);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to delete product"
+    );
+  }
+};
