@@ -16,7 +16,7 @@ const Cart = () => {
       <div className="flex flex-col">
         <p className="p-4"> Your cart is empty.</p>
         <Link
-          to="/"
+          to="/home"
           className="mt-4 inline-block text-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 5"
         >
           Go to Home
