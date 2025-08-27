@@ -86,3 +86,14 @@ export const fetchUsers = async () => {
     throw new Error(error.response?.data?.message || "Failed to fetch users");
   }
 };
+
+export const updateProduct = async (id, updatedData) => {
+  try {
+    const response = await axios.put(`${BASE_URL}/products/${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to update product"
+    );
+  }
+};
