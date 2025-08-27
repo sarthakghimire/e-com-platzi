@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import ProductDetails from "./pages/ProductDetails";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
+import Home from "./pages/customer/Home";
+import ProductDetails from "./pages/customer/ProductDetails";
+import Cart from "./pages/customer/Cart";
+import Checkout from "./pages/customer/Checkout";
 import ErrorPage from "./pages/ErrorPage";
 import LoginForm from "./pages/LoginForm";
-import AdminPanel from "./pages/AdminPanel";
+import AdminPanel from "./pages/admin/AdminPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
-import AddProduct from "./pages/AddProduct";
+import AddProduct from "./pages/admin/AddProduct";
 
 function App() {
   return (
