@@ -21,10 +21,10 @@ const AdminProduct = ({ product }) => {
           </p>
         </div>
         <div className="flex">
-          <button className="mt-4 mr-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2 5">
+          <button className="cursor-pointer mt-4 mr-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2 5">
             Edit
           </button>
-          <button className="mt-4 mr-4 inline-block text-center text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2 5">
+          <button className="cursor-pointer mt-4 mr-4 inline-block text-center text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2 5">
             Delete
           </button>
         </div>
