@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -28,18 +28,20 @@ const ProductCard = ({ product }) => {
         <p className="text-md font-bold text blue-700 mt-2">
           Rs.{product.price}
         </p>
-        {/* <Link
-          to={`/product/${product.id}`}
-          className="mt-4 mr-4 inline-block text-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 5"
-        >
-          See More
-        </Link> */}
-        <button
-          className="mt-4 mr-4 inline-block text-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 5"
-          onClick={handleClick}
-        >
-          Add to Cart
-        </button>
+        <div>
+          <Link
+            to={`/product/${product.id}`}
+            className="mt-4 mr-4 inline-block text-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 5"
+          >
+            See More
+          </Link>
+          <button
+            className="mt-4 mr-4 inline-block text-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2 5"
+            onClick={handleClick}
+          >
+            Add to Cart
+          </button>
+        </div>
         <Toaster position="top-center" reverseOrder={false} />
       </div>
     </div>
