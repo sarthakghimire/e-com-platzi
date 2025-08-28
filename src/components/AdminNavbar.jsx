@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "./../assets/logo.png";
 import { useAuth } from "./../context/AuthContext";
 
-const Navbar = () => {
+const AdminNavbar = () => {
   const { user } = useAuth();
 
   return (
@@ -40,4 +40,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;
