@@ -84,7 +84,7 @@ const EditProduct = () => {
   return (
     <div>
       <AdminNavbar />
-      <h2 className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md text-2xl font-bold text-center">
+      <h2 className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg text-2xl font-bold text-center">
         Edit Product
       </h2>
       <form
