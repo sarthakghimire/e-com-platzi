@@ -1,8 +1,11 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProduct } from "../api/products";
+import { deleteProduct, updateProduct } from "../api/products";
+import { useNavigate } from "react-router-dom";
 
 const AdminProduct = ({ product }) => {
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: () => deleteProduct(product.id),
@@ -15,10 +18,24 @@ const AdminProduct = ({ product }) => {
     },
   });
 
+  const editMutation = useMutation({
+    mutationFn: () => (updatedData) => updateProduct(product.id, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["products"]); // Refresh the products list
+      navigate("/admin-panel");
+    },
+    onError: (error) => {
+      alert(`Error updating product: ${error.message}`);
+    },
+  });
+
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete ${product.title}?`)) {
       mutation.mutate();
     }
+  };
+  const handleEdit = () => {
+    navigate(`/edit-product/${product.id}`);
   };
   return (
     <div>
@@ -40,7 +57,10 @@ const AdminProduct = ({ product }) => {
           </p>
         </div>
         <div className="flex">
-          <button className="cursor-pointer mt-4 mr-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2 5">
+          <button
+            onClick={handleEdit}
+            className="cursor-pointer mt-4 mr-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2 5"
+          >
             Edit
           </button>
           <button

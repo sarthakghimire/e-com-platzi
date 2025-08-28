@@ -8,6 +8,7 @@ import LoginForm from "./pages/LoginForm";
 import AdminPanel from "./pages/admin/AdminPanel";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddProduct from "./pages/admin/AddProduct";
+import EditProduct from "./pages/admin/EditProduct";
 
 function App() {
   return (
@@ -60,6 +61,14 @@ function App() {
           element={
             <ProtectedRoute requiredRole="admin">
               <AddProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-product/:id"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <EditProduct />
             </ProtectedRoute>
           }
         />
