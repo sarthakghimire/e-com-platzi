@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 const BASE_URL = "https://api.escuelajs.co/api/v1";
 
@@ -8,9 +8,19 @@ export const fetchProducts = async () => {
     const response = await axios.get(`${BASE_URL}/products`);
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to fetch products"
-    );
+    //  throw new Error(
+    //    error.response?.data?.message || "Failed to fetch products"
+    //  );
+    if (isAxiosError(error)) {
+      const errorData = error.response.data;
+
+      if (errorData) {
+        // handle the error
+        return;
+      }
+
+      alert(error.message);
+    }
   }
 };
 
