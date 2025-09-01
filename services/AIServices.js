@@ -15,7 +15,7 @@ export async function summarizeCart(cartItems) {
           `${item.title} - Quantity: ${item.quantity}, Price: Rs.${item.price}`
       )
       .join("\n");
-    const prompt = `Make a humorous summary of the cart. Roast the customer in a light manner. Assume the customer is Nepali. Cart items:\n${itemsSummary}`;
+    const prompt = `Make a humorous summary of the cart. Roast the customer in a light manner. Assume the customer is Nepali.Nepali does not necessarily mean mountain and momo and Sherpa only, it can be more. Cart items:\n${itemsSummary}`;
     const result = await model.generateContent(prompt);
     const summary = await result.response.text();
     return summary.trim();
