@@ -8,7 +8,7 @@ export async function summarizeCart(cartItems) {
   }
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    // Prepare a string representation of cart items for the AI
+    //string representation of cart items for the AI
     const itemsSummary = cartItems
       .map(
         (item) =>
