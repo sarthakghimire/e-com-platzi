@@ -6,13 +6,23 @@ const CategoryFilter = ({
   selectedPriceRange,
   onPriceChange,
 }) => {
+  //Replacing with id instead of slug
+  // const categories = [
+  //   { slug: null, name: "All" },
+  //   { slug: "clothes", name: "Clothes" },
+  //   { slug: "electronics", name: "Electronics" },
+  //   { slug: "furniture", name: "Furniture" },
+  //   { slug: "shoes", name: "Shoes" },
+  //   { slug: "miscellaneous", name: "Miscellaneous" },
+  // ];
+
   const categories = [
-    { slug: null, name: "All" },
-    { slug: "clothes", name: "Clothes" },
-    { slug: "electronics", name: "Electronics" },
-    { slug: "furniture", name: "Furniture" },
-    { slug: "shoes", name: "Shoes" },
-    { slug: "miscellaneous", name: "Miscellaneous" },
+    { id: null, name: "All" },
+    { id: 1, name: "Clothes" },
+    { id: 2, name: "Electronics" },
+    { id: 3, name: "Furniture" },
+    { id: 4, name: "Shoes" },
+    { id: 5, name: "Miscellaneous" },
   ];
 
   const [minPrice, setMinPrice] = useState("");
@@ -28,7 +38,8 @@ const CategoryFilter = ({
     <div className="p-4 bg-white rounded shadow mb-4 sticky lg:h-screen md:h-screen top-[64px] flex sm:flex-row md:flex-col lg:flex-col">
       <div>
         <h2 className="text-xl font-semibold mb-2">Filter by Category</h2>
-        {categories.map((cat) => (
+        {/* Replaced slug with ID */}
+        {/* {categories.map((cat) => (
           <label key={cat.slug ?? "all"} className="block cursor-pointer">
             <input
               type="radio"
@@ -36,6 +47,19 @@ const CategoryFilter = ({
               value={cat.slug ?? ""}
               checked={selectedCategory === cat.slug}
               onChange={() => onCategoryChange(cat.slug)}
+              className="mr-2"
+            />
+            {cat.name}
+          </label>
+        ))} */}
+        {categories.map((cat) => (
+          <label key={cat.id ?? "all"} className="block cursor-pointer">
+            <input
+              type="radio"
+              name="category"
+              value={cat.id ?? ""}
+              checked={selectedCategory === cat.id}
+              onChange={() => onCategoryChange(cat.id)}
               className="mr-2"
             />
             {cat.name}

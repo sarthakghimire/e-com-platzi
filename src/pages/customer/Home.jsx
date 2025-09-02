@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
+  fetchCombinedPagination,
   fetchProducts,
   fetchProductsByCategory,
   fetchProductsByPriceRange,
@@ -14,7 +15,7 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
   const [page, setPage] = useState(0); // page starts from 0
-  const limit = 9; // products per page
+  const limit = 10; // products per page
 
   const {
     data: products,
@@ -24,18 +25,14 @@ const Home = () => {
     refetch,
   } = useQuery({
     queryKey: ["products", selectedCategory, priceRange, page],
-    queryFn: async () => {
-      if (
-        priceRange.min === 0 &&
-        priceRange.max === Infinity &&
-        !selectedCategory
-      ) {
-        return fetchProductsWithPagination(page * limit, limit);
-      }
-      if (selectedCategory) {
-        return fetchProductsByCategory(selectedCategory);
-      }
-      return fetchProductsByPriceRange(priceRange.min, priceRange.max);
+    queryFn: () => {
+      return fetchCombinedPagination(
+        page * limit,
+        limit,
+        priceRange.min,
+        priceRange.max,
+        selectedCategory
+      );
     },
     keepPreviousData: true,
   });
@@ -78,7 +75,7 @@ const Home = () => {
             ))}
           </div>
           {/* Pagination */}
-          {!selectedCategory &&
+          {/* {!selectedCategory &&
             priceRange.min === 0 &&
             priceRange.max === Infinity && (
               <div className="flex justify-center gap-4 mt-6">
@@ -96,7 +93,23 @@ const Home = () => {
                   Next
                 </button>
               </div>
-            )}
+            )} */}
+          <div className="flex justify-center gap-4 mt-6">
+            <button
+              disabled={page === 0}
+              onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+            >
+              Previous
+            </button>
+            <button
+              disabled={!products || products.length < limit}
+              onClick={() => setPage((prev) => prev + 1)}
+              className="px-4 py-2 bg-gray-200 disabled:opacity-50 rounded"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>

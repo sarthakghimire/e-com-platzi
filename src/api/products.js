@@ -48,18 +48,6 @@ export const fetchProductsByCategory = async (categorySlug) => {
   }
 };
 
-//Pagination
-// try {
-//   const response = await axios.get(
-//     `${BASE_URL}/api/v1/products?offset=${offset}&limit=${limit}`
-//   );
-//   return response.data;
-// } catch (error) {
-//   throw new Error(
-//     error.response?.data?.message || "Failed to fetch by category slug"
-//   );
-// }
-
 //Filter by price range
 export const fetchProductsByPriceRange = async (minPrice, maxPrice) => {
   try {
@@ -77,6 +65,7 @@ export const fetchProductsByPriceRange = async (minPrice, maxPrice) => {
   }
 };
 
+//Pagination for all products
 export const fetchProductsWithPagination = async (offset = 0, limit = 10) => {
   try {
     const response = await axios.get(
@@ -93,6 +82,32 @@ export const fetchProductsWithPagination = async (offset = 0, limit = 10) => {
   }
 };
 
+//Pagination with category and price range
+export const fetchCombinedPagination = async (
+  offset = 0,
+  limit = 10,
+  minPrice,
+  maxPrice,
+  categoryId = null
+) => {
+  try {
+    let url = `${BASE_URL}/products/?price_min=${minPrice}&price_max=${maxPrice}&limit=${limit}&offset=${offset}`;
+    if (categoryId && !isNaN(categoryId)) {
+      url += `&categoryId=${Number(categoryId)}`;
+    }
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed fetching paginated products"
+      );
+    }
+    throw error;
+  }
+};
+
+//Fetch users
 export const fetchUsers = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/users`);
@@ -105,6 +120,7 @@ export const fetchUsers = async () => {
   }
 };
 
+//Update product for admin
 export const updateProduct = async (id, updatedData) => {
   try {
     const response = await axios.put(`${BASE_URL}/products/${id}`, updatedData);
@@ -118,6 +134,7 @@ export const updateProduct = async (id, updatedData) => {
     throw error;
   }
 };
+
 // Delete logic
 export const deleteProduct = async (id) => {
   try {
@@ -132,6 +149,7 @@ export const deleteProduct = async (id) => {
     throw error;
   }
 };
+
 //Add a new product
 export const addProduct = async (productData) => {
   try {
