@@ -8,19 +8,12 @@ export const fetchProducts = async () => {
     const response = await axios.get(`${BASE_URL}/products`);
     return response.data;
   } catch (error) {
-    //  throw new Error(
-    //    error.response?.data?.message || "Failed to fetch products"
-    //  );
     if (isAxiosError(error)) {
-      const errorData = error.response.data;
-
-      if (errorData) {
-        // handle the error
-        return;
-      }
-
-      alert(error.message);
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch products"
+      );
     }
+    throw error;
   }
 };
 
@@ -30,9 +23,12 @@ export const fetchProductById = async (id) => {
     const response = await axios.get(`${BASE_URL}/products/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to fetch product details"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch products"
+      );
+    }
+    throw error;
   }
 };
 
@@ -43,9 +39,12 @@ export const fetchProductsByCategory = async (categorySlug) => {
     );
     return res.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to fetch by category slug"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch products by category"
+      );
+    }
+    throw error;
   }
 };
 
@@ -69,9 +68,12 @@ export const fetchProductsByPriceRange = async (minPrice, maxPrice) => {
     );
     return res.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to fetch by price range"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to filter by price range"
+      );
+    }
+    return error;
   }
 };
 
@@ -82,9 +84,12 @@ export const fetchProductsWithPagination = async (offset = 0, limit = 10) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to fetch paginated products"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to fetch product by pagination"
+      );
+    }
+    throw error;
   }
 };
 
@@ -93,7 +98,10 @@ export const fetchUsers = async () => {
     const response = await axios.get(`${BASE_URL}/users`);
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to fetch users");
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data?.message || "Failed to fetch users");
+    }
+    throw error;
   }
 };
 
@@ -102,9 +110,12 @@ export const updateProduct = async (id, updatedData) => {
     const response = await axios.put(`${BASE_URL}/products/${id}`, updatedData);
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to update product"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to update product"
+      );
+    }
+    throw error;
   }
 };
 // Delete logic
@@ -113,9 +124,12 @@ export const deleteProduct = async (id) => {
     const response = await axios.delete(`${BASE_URL}/products/${id}`);
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to delete product"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to delete product"
+      );
+    }
+    throw error;
   }
 };
 //Add a new product
@@ -124,8 +138,11 @@ export const addProduct = async (productData) => {
     const response = await axios.post(`${BASE_URL}/products/`, productData);
     return response.data;
   } catch (error) {
-    throw new Error(
-      error.response?.data?.message || "Failed to delete product"
-    );
+    if (isAxiosError(error)) {
+      throw new Error(
+        error.response?.data?.message || "Failed to delete product"
+      );
+    }
+    throw error;
   }
 };
