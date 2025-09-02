@@ -39,6 +39,7 @@ const Home = () => {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
+    setPriceRange({ min: 0, max: Infinity }); // reset price range
     setPage(0); // reset page
     refetch();
   };
