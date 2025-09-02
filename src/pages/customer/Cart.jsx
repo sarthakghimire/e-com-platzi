@@ -109,17 +109,13 @@ const Cart = () => {
           Checkout
         </Link>
         <button
+          disabled={mutation.isPending}
           onClick={handleSummarize}
-          className="mt-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5"
+          className="mt-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 disabled:bg-gray disabled:cursor-not-allowed py-2.5"
         >
-          Roast My cart
+          {mutation.isPending ? "Loading" : "Roast My cart"}
         </button>
       </div>
-      {mutation.isLoading && (
-        <div className="mt-4 p-4 bg-gray-200 rounded flex items-center justify-center">
-          <p className="text-lg font-semibold text-gray-700">Loading...</p>
-        </div>
-      )}
       {summary && (
         <div className="mt-4 p-4 bg-gray-100 rounded">
           <p className="text-lg font-semibold">There you go:</p>
