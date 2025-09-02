@@ -99,14 +99,14 @@ const Home = () => {
             <button
               disabled={page === 0}
               onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+              className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Previous
             </button>
             <button
               disabled={!products || products.length < limit}
               onClick={() => setPage((prev) => prev + 1)}
-              className="px-4 py-2 bg-gray-200 disabled:opacity-50 rounded"
+              className="px-4 py-2 bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed rounded"
             >
               Next
             </button>

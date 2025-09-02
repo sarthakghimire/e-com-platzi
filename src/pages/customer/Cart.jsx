@@ -111,9 +111,9 @@ const Cart = () => {
         <button
           disabled={mutation.isPending}
           onClick={handleSummarize}
-          className="mt-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 disabled:bg-gray disabled:cursor-not-allowed py-2.5"
+          className="mt-4 inline-block text-center text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 cursor-pointer disabled:bg-gray disabled:cursor-not-allowed py-2.5"
         >
-          {mutation.isPending ? "Loading" : "Roast My cart"}
+          {mutation.isPending ? "Loading..." : "Roast My cart"}
         </button>
       </div>
       {summary && (
