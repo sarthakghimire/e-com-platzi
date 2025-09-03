@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../../api/products";
 import AdminProduct from "../../components/AdminProduct";
 import AdminNavbar from "../../components/AdminNavbar";
+import Loading from "./../../assets/loading.json";
+import Lottie from "lottie-react";
 
 const AdminPanel = () => {
   const {
@@ -13,12 +15,12 @@ const AdminPanel = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const data = await fetchProducts();
       return data;
     },
   });
 
-  if (isLoading) return <p className="p-4">Loading...</p>;
   if (isError)
     return <p className="p-4 text-red-500">Error: {error.message}</p>;
 
@@ -30,6 +32,13 @@ const AdminPanel = () => {
           <AdminProduct key={product.id} product={product} />
         ))}
       </div>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+          <div className="w-40">
+            <Lottie animationData={Loading} loop={true} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

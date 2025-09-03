@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  fetchCombinedPagination,
-  fetchProducts,
-  fetchProductsByCategory,
-  fetchProductsByPriceRange,
-  fetchProductsWithPagination,
-} from "../../api/products";
+import { fetchCombinedPagination } from "../../api/products";
 import ProductCard from "../../components/ProductCard";
 import CategoryFilter from "../../components/CategoryFilter";
 import Navbar from "../../components/Navbar";
+import Loading from "./../../assets/loading.json";
+import Lottie from "lottie-react";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -26,6 +22,7 @@ const Home = () => {
   } = useQuery({
     queryKey: ["products", selectedCategory, priceRange, page],
     queryFn: () => {
+      new Promise((resolve) => setTimeout(resolve, 3000));
       return fetchCombinedPagination(
         page * limit,
         limit,
@@ -50,7 +47,6 @@ const Home = () => {
     refetch();
   };
 
-  if (isLoading) return <p className="p-4">Loading...</p>;
   if (isError)
     return <p className="p-4 text-red-500">Error: {error.message}</p>;
 
@@ -113,6 +109,13 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+          <div className="w-40">
+            <Lottie animationData={Loading} loop={true} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
