@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "./../assets/logo.png";
 import { useAuth } from "./../context/AuthContext";
 
 const AdminNavbar = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
 
   return (
     <>
@@ -19,7 +25,14 @@ const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/" className="hover:text-blue-600">
+            <Link
+              to="/"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogout();
+              }}
+              className="hover:text-blue-600"
+            >
               Log Out {user.name}
             </Link>
           </li>

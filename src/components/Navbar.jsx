@@ -6,8 +6,13 @@ import { useCart } from "../context/CartContext";
 
 const Navbar = ({ resetFilters }) => {
   const { cartItems } = useCart();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/", { replace: true });
+  };
 
   return (
     <>
@@ -71,9 +76,12 @@ const Navbar = ({ resetFilters }) => {
                 <Link
                   to="/"
                   className="block px-4 py-2 text-sm text-red-500 hover:bg-gray-100"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLogout();
+                  }}
                 >
-                  Logout
+                  Log Out
                 </Link>
               </div>
             )}
