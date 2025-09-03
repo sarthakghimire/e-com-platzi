@@ -5,6 +5,8 @@ import { fetchProductById } from "../../api/products";
 import toast, { Toaster } from "react-hot-toast";
 import { useCart } from "../../context/CartContext";
 import Navbar from "./../../components/Navbar";
+import Loading from "./../../assets/loading.json";
+import Lottie from "lottie-react";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -25,7 +27,14 @@ const ProductDetails = () => {
     toast.success("Added to Cart");
   };
 
-  if (isLoading) return <p className="p-4">Loading product...</p>;
+  if (isLoading)
+    return (
+      <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+        <div className="w-40">
+          <Lottie animationData={Loading} loop={true} />
+        </div>
+      </div>
+    );
   if (isError)
     return <p className="p-4 text-red-500">Error: {error.message}</p>;
 
