@@ -6,16 +6,6 @@ const CategoryFilter = ({
   selectedPriceRange,
   onPriceChange,
 }) => {
-  //Replacing with id instead of slug
-  // const categories = [
-  //   { slug: null, name: "All" },
-  //   { slug: "clothes", name: "Clothes" },
-  //   { slug: "electronics", name: "Electronics" },
-  //   { slug: "furniture", name: "Furniture" },
-  //   { slug: "shoes", name: "Shoes" },
-  //   { slug: "miscellaneous", name: "Miscellaneous" },
-  // ];
-
   const categories = [
     { id: null, name: "All" },
     { id: 1, name: "Clothes" },

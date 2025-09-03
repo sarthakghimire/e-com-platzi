@@ -4,7 +4,7 @@ import logo from "./../assets/logo.png";
 import { useAuth } from "./../context/AuthContext";
 import { useCart } from "../context/CartContext";
 
-const Navbar = () => {
+const Navbar = ({ resetFilters }) => {
   const { cartItems } = useCart();
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +13,20 @@ const Navbar = () => {
     <>
       <div className="flex justify-between h-16 sticky top-0 bg-white z-50 shadow-md items-center px-4">
         <Link to="/home">
-          <img src={logo} alt="logo" className="cursor-pointer h-11" />
+          <img
+            src={logo}
+            onClick={() => resetFilters && resetFilters()}
+            alt="logo"
+            className="cursor-pointer h-11"
+          />
         </Link>
         <ul className="flex space-x-6">
           <li className="hidden md:block">
-            <Link to="/home" className="hover:text-blue-600">
+            <Link
+              to="/home"
+              onClick={() => resetFilters && resetFilters()}
+              className="hover:text-blue-600"
+            >
               Home
             </Link>
           </li>

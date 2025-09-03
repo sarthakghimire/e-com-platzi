@@ -9,6 +9,13 @@ import Lottie from "lottie-react";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const resetFilters = () => {
+    setSelectedCategory(null);
+    setPriceRange({ min: 0, max: Infinity });
+    setPage(0);
+  };
+
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
   const [page, setPage] = useState(0); // page starts from 0
   const limit = 10; // products per page
@@ -52,7 +59,7 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar resetFilters={resetFilters} />
       <div
         id="home"
         className="p-6 flex lg:flex-row md:flex-row flex-col gap-6"
@@ -71,26 +78,6 @@ const Home = () => {
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          {/* Pagination */}
-          {/* {!selectedCategory &&
-            priceRange.min === 0 &&
-            priceRange.max === Infinity && (
-              <div className="flex justify-center gap-4 mt-6">
-                <button
-                  disabled={page === 0}
-                  onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-                  className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-                >
-                  Previous
-                </button>
-                <button
-                  onClick={() => setPage((prev) => prev + 1)}
-                  className="px-4 py-2 bg-gray-200 rounded"
-                >
-                  Next
-                </button>
-              </div>
-            )} */}
           <div className="flex justify-center gap-4 mt-6">
             <button
               disabled={page === 0}

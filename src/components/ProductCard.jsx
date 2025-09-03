@@ -19,6 +19,7 @@ const ProductCard = ({ product }) => {
             ? product.images[0]
             : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5E1FgiVuVpe6aqS7mYbrf1sdq-hnn1QDhnA&s"
         }
+        className="rounded transform hover:scale-105 transition-transform duration-300"
       />
       <div className="mt-4">
         <h2 className="text-lg font-semibold">{product.title}</h2>
