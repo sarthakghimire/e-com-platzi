@@ -2,8 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "./../assets/logo.png";
 import { useAuth } from "./../context/AuthContext";
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
+  const { cartItems } = useCart();
   const { user } = useAuth();
 
   return (
@@ -21,6 +23,7 @@ const Navbar = () => {
           <li>
             <Link to="/cart" className="hover:text-blue-600">
               Cart
+              <sup className="text-red-500">{cartItems.length}</sup>
             </Link>
           </li>
           <li>

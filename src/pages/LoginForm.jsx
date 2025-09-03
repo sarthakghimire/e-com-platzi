@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchUsers } from "../api/products";
 import { useAuth } from "../context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -10,28 +11,38 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
+  const {
+    data: users = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: fetchUsers,
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    try {
-      const users = await fetchUsers();
-      const user = users.find(
-        (u) => u.email === email && u.password === password
-      );
+    if (isLoading) return;
+    if (isError) {
+      setError("Failed to fetch users.");
+      return;
+    }
 
-      if (user) {
-        setUser(user);
-        if (user.role === "admin") {
-          navigate("/admin-panel");
-        } else {
-          navigate("/home");
-        }
+    const user = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (user) {
+      setUser(user);
+      if (user.role === "admin") {
+        navigate("/admin-panel");
       } else {
-        setError("Invalid email or password");
+        navigate("/home");
       }
-    } catch (err) {
-      setError("Failed to login. Please try again.");
+    } else {
+      setError("Invalid email or password");
     }
   };
 
@@ -74,10 +85,11 @@ const LoginForm = () => {
             />
           </div>
           <button
+            disabled={isLoading}
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:cursor-progress"
           >
-            Login
+            {isLoading ? "Logging In..." : "Login"}
           </button>
         </form>
       </div>

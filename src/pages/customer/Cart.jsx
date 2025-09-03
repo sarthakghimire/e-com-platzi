@@ -50,7 +50,9 @@ const Cart = () => {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div>
-        <h2 className="text-2xl font-bold mb-4">Your Cart</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Your Cart ({cartItems.length} Items)
+        </h2>
         {cartItems.map((item) => (
           <div
             key={item.id}
