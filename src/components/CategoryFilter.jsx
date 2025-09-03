@@ -28,20 +28,6 @@ const CategoryFilter = ({
     <div className="p-4 bg-white rounded shadow mb-4 sticky lg:h-screen md:h-screen top-[64px] flex sm:flex-row md:flex-col lg:flex-col">
       <div>
         <h2 className="text-xl font-semibold mb-2">Filter by Category</h2>
-        {/* Replaced slug with ID */}
-        {/* {categories.map((cat) => (
-          <label key={cat.slug ?? "all"} className="block cursor-pointer">
-            <input
-              type="radio"
-              name="category"
-              value={cat.slug ?? ""}
-              checked={selectedCategory === cat.slug}
-              onChange={() => onCategoryChange(cat.slug)}
-              className="mr-2"
-            />
-            {cat.name}
-          </label>
-        ))} */}
         {categories.map((cat) => (
           <label key={cat.id ?? "all"} className="block cursor-pointer">
             <input
@@ -59,7 +45,7 @@ const CategoryFilter = ({
       <div>
         <div>
           <h2 className="text-xl font-semibold mb-2">Filter by Price</h2>
-          <div className="flex flex-col w-50 gap-2 mb-2">
+          <div className="flex flex-col  gap-2 mb-2">
             <input
               type="number"
               value={minPrice}

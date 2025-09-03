@@ -157,9 +157,7 @@ export const addProduct = async (productData) => {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(
-        error.response?.data?.message || "Failed to delete product"
-      );
+      throw new Error(error.response?.data?.message || "Failed to add product");
     }
     throw error;
   }

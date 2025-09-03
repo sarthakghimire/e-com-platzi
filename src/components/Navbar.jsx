@@ -34,7 +34,7 @@ const Navbar = ({ resetFilters }) => {
             <Link to="/cart" className="hover:text-blue-600">
               Cart
               <sup className="text-red-500">
-                {cartItems.length == 0 ? "" : cartItems.length}
+                {cartItems.length === 0 ? "" : cartItems.length}
               </sup>
             </Link>
           </li>
