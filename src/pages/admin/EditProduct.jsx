@@ -79,12 +79,14 @@ const EditProduct = () => {
     mutation.mutate(formData);
   };
 
-  if (isLoading) return;
-  <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
-    <div className="w-40">
-      <Lottie animationData={Loading} loop={true} />
-    </div>
-  </div>;
+  if (isLoading)
+    return (
+      <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+        <div className="w-40">
+          <Lottie animationData={Loading} loop={true} />
+        </div>
+      </div>
+    );
   if (isError)
     return <p className="p-4 text-red-500">Error: {error.message}</p>;
 
