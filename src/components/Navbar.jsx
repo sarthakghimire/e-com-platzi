@@ -52,7 +52,7 @@ const Navbar = () => {
                   Cart
                   <sup className="text-red-500 ml-1">{cartItems.length}</sup>
                 </Link>
-                <p className="block px-4 py-2 text-sm hover:bg-gray-100">
+                <p className="block px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer">
                   {user.name}
                   <br />
                   <span className="text-blue-500">{user.email}</span>
