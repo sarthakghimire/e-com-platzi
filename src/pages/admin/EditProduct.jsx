@@ -3,6 +3,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchProductById, updateProduct } from "./../../api/products";
 import AdminNavbar from "../../components/AdminNavbar";
+import Loading from "./../../assets/loading.json";
+import Lottie from "lottie-react";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -77,7 +79,12 @@ const EditProduct = () => {
     mutation.mutate(formData);
   };
 
-  if (isLoading) return <p className="p-4">Loading product data...</p>;
+  if (isLoading) return;
+  <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm z-50">
+    <div className="w-40">
+      <Lottie animationData={Loading} loop={true} />
+    </div>
+  </div>;
   if (isError)
     return <p className="p-4 text-red-500">Error: {error.message}</p>;
 
