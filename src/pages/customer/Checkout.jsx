@@ -39,7 +39,13 @@ const Checkout = () => {
       <Navbar />
       <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded">
         {/* For Toast */}
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 450,
+          }}
+        />
 
         <h2 className="text-2xl font-bold mb-4">Checkout</h2>
 

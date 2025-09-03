@@ -54,7 +54,13 @@ const ProductDetails = () => {
             >
               Add to Cart
             </button>
-            <Toaster position="top-right" reverseOrder={false} />
+            <Toaster
+              position="top-right"
+              reverseOrder={false}
+              toastOptions={{
+                duration: 450,
+              }}
+            />
           </div>
         </div>
       </div>

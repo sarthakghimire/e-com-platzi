@@ -43,7 +43,13 @@ const ProductCard = ({ product }) => {
             Add to Cart
           </button>
         </div>
-        <Toaster position="top-center" reverseOrder={false} />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{
+            duration: 450,
+          }}
+        />
       </div>
     </div>
   );
