@@ -6,7 +6,6 @@ import CategoryFilter from "../../components/CategoryFilter";
 import Navbar from "../../components/Navbar";
 import Loading from "./../../assets/loading.json";
 import Lottie from "lottie-react";
-import LoadingScreen from "../../components/LoadingScreen";
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
