@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "./../assets/logo.png";
 import { useAuth } from "./../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import image from "./../assets/image.png";
 
 const Navbar = ({ resetFilters }) => {
   const { cartItems } = useCart();
@@ -47,7 +48,7 @@ const Navbar = ({ resetFilters }) => {
             <button onClick={() => setIsOpen((prev) => !prev)}>
               <img
                 className="h-10 w-10 rounded-3xl cursor-pointer"
-                src={user ? user.avatar : "https://via.placeholder.com/40"}
+                src={user ? user.avatar : { image }}
                 alt=""
               />
             </button>
