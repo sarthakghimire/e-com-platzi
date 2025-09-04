@@ -25,7 +25,7 @@ const CategoryFilter = ({
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow mb-4 sticky lg:h-screen md:h-screen top-[64px] flex sm:flex-row md:flex-col lg:flex-col">
+    <div className="p-4 bg-white rounded shadow mb-4 sticky lg:h-screen md:h-screen top-[64px] flex sm:flex-row md:flex-col lg:flex-col z-10">
       <div>
         <h2 className="text-xl font-semibold mb-2">Filter by Category</h2>
         {categories.map((cat) => (
