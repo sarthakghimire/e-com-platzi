@@ -17,6 +17,22 @@ const Checkout = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+
+  const handleApplyPromo = () => {
+    const validPromoCodes = ["SAVE20", "DISCOUNT20", "OFFER20"];
+    if (validPromoCodes.includes(promoCode.toUpperCase())) {
+      const calculatedDiscount = Math.min(totalPrice * 0.2, 100);
+      setDiscount(calculatedDiscount);
+      toast.success(
+        `Promo applied! You saved Rs.${calculatedDiscount.toFixed(2)}`
+      );
+    } else {
+      toast.error("Invalid Promo Code");
+      setDiscount(0);
+    }
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -89,7 +105,29 @@ const Checkout = () => {
             <hr className="my-3" />
             <div className="flex justify-between font-bold text-lg text-gray-800">
               <span>Total</span>
-              <span>Rs.{totalPrice.toFixed(2)}</span>
+              <span>Rs.{(totalPrice - discount).toFixed(2)}</span>
+            </div>
+            <div>
+              <p>Have a Promocode?</p>
+              <div className="flex gap-5">
+                <input
+                  type="text"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  className="border"
+                />
+                <button
+                  className="border rounded bg-green-400 text-white p-2"
+                  onClick={handleApplyPromo}
+                >
+                  Apply
+                </button>
+              </div>
+              {discount > 0 && (
+                <p className="mt-2 text-green-600 font-medium">
+                  Discount Applied: Rs.{discount.toFixed(2)}
+                </p>
+              )}
             </div>
           </div>
 
