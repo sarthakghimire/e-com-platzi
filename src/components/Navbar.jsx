@@ -4,8 +4,10 @@ import logo from "./../assets/logo.png";
 import { useAuth } from "./../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import image from "./../assets/image.png";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ resetFilters }) => {
+  const navigate = useNavigate();
   const { cartItems } = useCart();
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);

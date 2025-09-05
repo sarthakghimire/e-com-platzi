@@ -127,6 +127,9 @@ const Checkout = () => {
             {/* Delivery form */}
             {!pickup && (
               <div className="bg-gray-50 p-5 rounded-lg shadow-sm">
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                  Delivery Address
+                </h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block font-medium text-gray-700">
