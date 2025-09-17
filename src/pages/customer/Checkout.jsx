@@ -5,21 +5,20 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
 const Checkout = () => {
-  const navigate = useNavigate();
   const { cartItems, removeFromCart, clearCart } = useCart();
-
   const [checked, setChecked] = useState(true);
   const [pickup, setPickup] = useState(false);
   const [agree, setAgree] = useState(true);
   const [radioChecked, setRadioChecked] = useState(true);
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const navigate = useNavigate();
 
-  // total
+  // total price
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const [promoCode, setPromoCode] = useState("");
-  const [discount, setDiscount] = useState(0);
 
   const handleApplyPromo = () => {
     const validPromoCodes = ["SAVE20", "DISCOUNT20", "OFFER20"];
@@ -33,6 +32,22 @@ const Checkout = () => {
       toast.error("Invalid Promo Code");
       setDiscount(0);
     }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!agree) {
+      toast.error("You must accept the Terms and Conditions");
+      return;
+    }
+
+    toast.success("Order placed successfully! 🎉");
+
+    setTimeout(() => {
+      if (clearCart) clearCart();
+      navigate("/home");
+    }, 1200);
   };
 
   if (cartItems.length === 0) {
@@ -51,35 +66,20 @@ const Checkout = () => {
     );
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    toast.success("Order placed successfully!");
-    setTimeout(() => {
-      if (clearCart) clearCart();
-      navigate("/home");
-    }, 1200);
-  };
-
   return (
     <>
       <Navbar />
       <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-6">
-        {/* Toast */}
         <Toaster
           position="top-center"
           reverseOrder={false}
-          toastOptions={{
-            duration: 1000,
-          }}
+          toastOptions={{ duration: 1000 }}
         />
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Checkout</h2>
 
         <div className="flex flex-col gap-8 lg:flex-row-reverse">
           {/* Order Summary */}
-          <div
-            id="checkout-desc"
-            className="w-full lg:w-1/2 border rounded-lg p-5 bg-gray-50 shadow-sm"
-          >
+          <div className="w-full lg:w-1/2 border rounded-lg p-5 bg-gray-50 shadow-sm">
             <h3 className="text-xl font-semibold mb-4 text-gray-700">
               Order Summary
             </h3>
@@ -136,15 +136,16 @@ const Checkout = () => {
             </div>
           </div>
 
-          {/* Checkout Forms */}
-          <div id="checkout-forms" className="w-full lg:w-1/2">
-            {/* Delivery */}
-            <div className="mb-6">
+          {/* Checkout Form */}
+          <form onSubmit={handleSubmit} className="w-full lg:w-1/2 space-y-6">
+            {/* Delivery and Collection */}
+            <div>
               <h3 className="text-xl font-semibold text-gray-700 mb-3">
                 Delivery and Collection
               </h3>
               <div className="flex gap-3">
                 <button
+                  type="button"
                   onClick={() => setPickup(false)}
                   className={`flex-1 p-3 rounded-lg border ${
                     !pickup
@@ -155,6 +156,7 @@ const Checkout = () => {
                   Home Delivery
                 </button>
                 <button
+                  type="button"
                   onClick={() => setPickup(true)}
                   className={`flex-1 p-3 rounded-lg border ${
                     pickup
@@ -167,188 +169,45 @@ const Checkout = () => {
               </div>
             </div>
 
-            {/* Delivery form */}
+            {/* Delivery Address */}
             {!pickup && (
-              <div className="bg-gray-50 p-5 rounded-lg shadow-sm">
+              <div className="bg-gray-50 p-5 rounded-lg shadow-sm space-y-4">
                 <h3 className="text-lg font-semibold text-gray-700 mb-2">
                   Delivery Address
                 </h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block font-medium text-gray-700">
-                      Name:
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-medium text-gray-700">
-                      Email Address:
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-medium text-gray-700">
-                      Contact:
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-medium text-gray-700">
-                      Address:
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="flex gap-3">
-                    <div className="flex-1">
-                      <label className="block font-medium text-gray-700">
-                        Floor:
-                      </label>
-                      <select className="w-full border rounded-lg px-3 py-2 mt-1">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                      </select>
-                    </div>
-                    <div className="flex-1">
-                      <label className="block font-medium text-gray-700">
-                        ZIP Code:
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block font-medium text-gray-700">
-                      City:
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </form>
-
-                {/* Billing */}
-                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">
-                    Billing Address
-                  </h3>
-                  <label className="flex items-center gap-2 text-gray-700">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => setChecked(!checked)}
-                      className="h-4 w-4"
-                    />
-                    Same as delivery address
-                  </label>
-                </div>
-
-                {!checked && (
-                  <form className="space-y-4 mt-4">
-                    <div>
-                      <label className="block font-medium text-gray-700">
-                        Name:
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-medium text-gray-700">
-                        Email Address:
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-medium text-gray-700">
-                        Contact:
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-medium text-gray-700">
-                        Address:
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                    <div className="flex gap-3">
-                      <div className="flex-1">
-                        <label className="block font-medium text-gray-700">
-                          Floor:
-                        </label>
-                        <select className="w-full border rounded-lg px-3 py-2 mt-1">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
-                      <div className="flex-1">
-                        <label className="block font-medium text-gray-700">
-                          ZIP Code:
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block font-medium text-gray-700">
-                        City:
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      />
-                    </div>
-                  </form>
-                )}
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Name"
+                  required
+                  className="w-full border rounded-lg px-3 py-2"
+                />
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  required
+                  className="w-full border rounded-lg px-3 py-2"
+                />
+                <input
+                  id="contact"
+                  type="text"
+                  placeholder="Contact"
+                  required
+                  className="w-full border rounded-lg px-3 py-2"
+                />
+                <input
+                  id="address"
+                  type="text"
+                  placeholder="Address"
+                  required
+                  className="w-full border rounded-lg px-3 py-2"
+                />
               </div>
             )}
 
             {/* Payment */}
-            <div className="mt-6 bg-gray-50 p-5 rounded-lg shadow-sm">
+            <div className="bg-gray-50 p-5 rounded-lg shadow-sm">
               <h3 className="text-lg font-semibold text-gray-700 mb-3">
                 Payment
               </h3>
@@ -358,58 +217,36 @@ const Checkout = () => {
                   name="payment"
                   checked={radioChecked}
                   onChange={() => setRadioChecked(true)}
-                />{" "}
+                  required
+                />
                 Debit Card
               </label>
               {radioChecked && (
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-4 rounded-lg shadow">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Card Number
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="1234 5678 9012 3456"
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Card Holder
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="John Doe"
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Expiry Date
-                    </label>
-                    <input
-                      min={`${new Date().getFullYear()}-${String(
-                        new Date().getMonth() + 1
-                      ).padStart(2, "0")}`}
-                      type="month"
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      CVV
-                    </label>
-                    <input
-                      type="password"
-                      placeholder="•••"
-                      maxLength="3"
-                      className="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-2 focus:ring-blue-500"
-                      required
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    placeholder="Card Number"
+                    required
+                    className="w-full border rounded-lg px-3 py-2"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Card Holder"
+                    required
+                    className="w-full border rounded-lg px-3 py-2"
+                  />
+                  <input
+                    type="month"
+                    required
+                    className="w-full border rounded-lg px-3 py-2"
+                  />
+                  <input
+                    type="password"
+                    placeholder="CVV"
+                    maxLength="3"
+                    required
+                    className="w-full border rounded-lg px-3 py-2"
+                  />
                 </div>
               )}
               <label className="flex items-center gap-2 text-gray-700 mt-2">
@@ -418,19 +255,20 @@ const Checkout = () => {
                   name="payment"
                   checked={!radioChecked}
                   onChange={() => setRadioChecked(false)}
-                />{" "}
+                />
                 {!pickup ? "Cash on Delivery" : "Pay After Pickup"}
               </label>
             </div>
 
             {/* TAC */}
-            <div className="mt-6">
+            <div>
               <label className="flex items-center gap-2 text-gray-700">
                 <input
                   type="checkbox"
                   checked={agree}
                   onChange={() => setAgree(!agree)}
                   className="h-4 w-4"
+                  required
                 />
                 I accept the Terms and Conditions
               </label>
@@ -438,14 +276,13 @@ const Checkout = () => {
 
             {/* Submit */}
             <button
-              disabled={!agree}
               type="submit"
-              className="cursor-pointer mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg  font-medium shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed"
-              onClick={handleSubmit}
+              disabled={!agree}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               {!agree ? "Please Agree to TAC" : "Place Order"}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </>
