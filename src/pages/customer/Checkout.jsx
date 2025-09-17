@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { Toaster, toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
 const Checkout = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const navigate = useNavigate();
+  const { cartItems, removeFromCart, clearCart } = useCart();
 
   const [checked, setChecked] = useState(true);
   const [pickup, setPickup] = useState(false);
@@ -53,6 +54,10 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     toast.success("Order placed successfully!");
+    setTimeout(() => {
+      if (clearCart) clearCart();
+      navigate("/home");
+    }, 1200);
   };
 
   return (
@@ -436,6 +441,7 @@ const Checkout = () => {
               disabled={!agree}
               type="submit"
               className="cursor-pointer mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg  font-medium shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed"
+              onClick={handleSubmit}
             >
               {!agree ? "Please Agree to TAC" : "Place Order"}
             </button>
